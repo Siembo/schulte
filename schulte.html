@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Schulte table</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-73312907-1', 'auto');
+  ga('send', 'pageview');
+
+  </script>
+</head>
+<body>
+<nav>
+  <a href="../index.html">Back to home</a>
+</nav>
+<h1>Schulte Table</h1>
+<em>download this Android game: <a href="./st5_by_kaffeecko.apk" download>St<sup>5</sup></a></em>
+<div id="newTurn"></div>
+<div>
+  <p id="nextNumber"></p>
+  <p id="timeElapsed"></p>
+</div>
+<div id="showContent"></div>
+<script type="text/javascript">
+// Choose level
+var level = prompt("Which level would you like to play (3x3 - 6x6)?", 3);
+if ( level >= 3 && level <= 6) {
+  // back to home page
+  function backToHome () {
+    window.location.replace("../index.html");
+  }
+    /**
+   * ready functions
+   */
+  // create nomal list
+  function buildArray ( size) {
+    var schulteList = [size*size], i = 0;
+    for ( i = 0; i < size*size; i++) {
+      schulteList[i] = i + 1;
+    }
+    return schulteList;
+  }
+  // shuffle list
+  function shuffle ( orderedArray) {
+    var array = orderedArray.slice();
+    var currentIndex = array.length, tempValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      tempValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = tempValue;
+    }
+    return array;
+  }
+  // get the value of clicked NumberButton
+  function compareValue ( number) {
+    var value = parseInt(number), next = parseInt(nextNumber.textContent);
+    if ( value === next) {
+      nextNumber.textContent = orderedArray[value];
+      if ( value === orderedArray.length) {
+              clearInterval(interval);
+
+        var endTime = new Date().getTime();
+        var timeflow = (endTime - startTime)/1000;
+        var grace = "";
+        if (timeflow < 10) {
+          grace = "GENIUS!!!";
+        } else if (timeflow < 15) {
+          grace = "Excellent!";
+        } else if (timeflow < 20) {
+          grace = "Good Job :D";
+        } else if (timeflow < 30) {
+          grace = "You can do it better!";
+        } else {
+          grace = "Need more exercise...";
+        }
+        alert("You have used " + timeflow + " seconds!\n" + grace);
+        location.reload();
+      }
+    }
+  }
+  /**
+   * UI
+   */
+  // insert table with buttons
+  var size = parseInt(level);
+  var orderedArray = buildArray(size);
+  var schulteArray = shuffle(orderedArray);
+  var tableBodyEL = document.createElement("table"), row = {};
+  document.getElementById("showContent").appendChild(tableBodyEL);
+  for ( var i = 0, index = 0; i < size; i++) {
+    row = tableBodyEL.insertRow();
+    for ( var j = 0; j < size; j++, index++) {
+      var btn = document.createElement("button");
+      btn.setAttribute("onclick", "compareValue(this.textContent)");
+      // btn.setAttribute("class", "pure-button");
+      btn.appendChild(document.createTextNode(schulteArray[index]));
+      row.insertCell(-1).appendChild(btn);
+    }
+  }
+  // insert timer
+  var timerEl = document.getElementById("timeElapsed");
+  timerEl.textContent = "time: ";
+  var timeCounter = timerEl.appendChild(document.createElement("span"));
+  timeCounter.textContent = 0;
+  var interval = setInterval( function () {
+    timeCounter.textContent++;
+    console.log(timeCounter.textContent);
+    if (timeCounter.textContent > 60) {
+      clearInterval(interval);
+      alert("60s past... it's better go to sleep...");
+      backToHome();
+    }
+  }, 1000);
+  // insert nextNumber
+  var nextEl = document.querySelector("p#nextNumber");
+  nextEl.textContent = "next: ";
+  var nextNumber = nextEl.appendChild(document.createElement("span"));
+  nextNumber.textContent = orderedArray[0];
+
+  // time start
+  var startTime = new Date().getTime();
+
+  // new turn button
+  var newTurnEl = document.getElementById("newTurn");
+  var newTurnBtn = document.createElement("button");
+  newTurnBtn.setAttribute("onclick", "location.reload()");
+  newTurnBtn.textContent = "New turn";
+  newTurnEl.appendChild(newTurnBtn);
+
+  var start = document.getElementById("start");
+  start.removeChild(start.firstChild);
+
+} else if ( level == null) {
+  backToHome();
+} else {
+  alert("Level should only be 3, 4, 5 or 6!");
+  location.reload();
+}
+
+</script>
+</body>
+</html>

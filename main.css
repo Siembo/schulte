@@ -1,0 +1,80 @@
+* {
+    font-family: "Droid Sans",sans;
+}
+
+html,body,h1,h2,h3,h4,h5,h6,p,blockquote,pre,code,em,img,small,strong,sub,sup,b,i,dl,dt,dd,ol,ul,li,table,tbody,tfoot,thead,tr,th,td {
+    border: 0;
+    /* font-size: <fontsize>px; dynamic variable set in application preferences*/
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+body {
+    /*-webkit-font-smoothing: antialiased;*/
+    /*background-color: rgba(255,255,255,0.0);*/
+    padding-top: 10px;
+    padding-right: 10px; /* padding-right: 0; (set to 30 for example render) */
+    padding-bottom: 7px;
+    padding-left: 10px; /* padding-left: 0; (set to 30 for example render) */
+    color: #333;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background-color: #F5F5F5;
+}
+
+a {
+    color: #47B1C7;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #EA4C89;
+}
+h1 {
+    font-size: 1.7em;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 10px 0 14px;
+}
+
+table {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-spacing: 0;
+    width:70%;
+    margin-left:15%;
+    margin-right:15%;
+}
+
+
+td {
+  border: 1px solid #ddd;
+  width: 50px;
+  height: 50px;
+}
+
+
+button {
+  border-radius: 0px 0px 0px 0px;
+  padding: 1px 1px;
+  width:100%;
+  height: 100%;
+  font-size: 120%;
+  background-color: Transparent;
+  border: none;
+  /*outline:none;*/
+}
+
+div#start {
+  margin: 40px;
+  font-size: 150%;
+}
+
+div#newTurn {
+  margin-top: 40px;
+}
